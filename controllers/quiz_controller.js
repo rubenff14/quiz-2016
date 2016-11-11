@@ -22,16 +22,38 @@ exports.index = function (req, res) {
 
 // GET /quizes/id
 exports.show = function (req, res) {
-	res.render('quizes/show.ejs', {quiz: req.quiz, errors:[]});
+	var fallos = req.query.fallos;
+	var capital = req.query.capital;
+
+	if (typeof capital == 'undefined') {
+		capital = '';
+	}
+
+	for (var i = 0; i < fallos; i ++) {
+		capital = capital + req.quiz.respuesta.charAt(i);
+	}
+	
+	res.render('quizes/show.ejs', {quiz: req.quiz, fallos: fallos, capital: capital, errors:[]});
 };
 
 // GET /quizes/:id/answer
 exports.answer = function (req, res) {
 	var resultado = 'Incorrecto';
-		if(req.query.respuesta.toUpperCase() === req.quiz.respuesta.toUpperCase()) {
-			resultado = 'Correcto';
-		}
-		res.render('quizes/answer.ejs', {quiz: req.quiz, respuesta: resultado, errors:[]});
+	var fallos = req.query.fallos;
+
+	if (typeof fallos == 'undefined') {
+		fallos = 0;
+	}
+
+	if(req.query.respuesta.toUpperCase() === req.quiz.respuesta.toUpperCase()) {
+		resultado = 'Correcto';
+		fallos = 0;
+	}
+	else {
+		fallos ++;	
+	}
+
+	res.render('quizes/answer.ejs', {quiz: req.quiz, respuesta: resultado, comprobarFallos: fallos, errors:[]});
 };
 
 // GET /quizes/new

@@ -1,5 +1,10 @@
-<form method="GET" action="/quizes/<%= quiz.id %>/answer">
+<% if (fallos >= 1) { %>
+	La respuesta correcta comienza por <%= capital %>
+<% } %>
+
+<form method="GET" action="/quizes/<%= quiz.id %>/answer?fallos=<%= fallos %>">
   <p>Pregunta: <%= quiz.pregunta %></p>
-  <input type="text" name="respuesta" value="Responda aquí"> 
+  <input type="hidden" name="fallos" value="<%= fallos %>""/>
+  <input type="text" name="respuesta" value="Responda aquí"/> 
   <input type="submit" value="Enviar">
 </form>

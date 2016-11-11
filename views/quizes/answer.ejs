@@ -1,6 +1,2 @@
-  <% if (respuesta == 'Incorrecto') { %>
-  		La respuesta correcta comienza por <%= quiz.respuesta.charAt(0) %>
-  <% } %>
-
-  <p><%= respuesta %></p>
-  <a href="/quizes/<%= quiz.id %>">Volver</a>
+<p><%= respuesta %></p>
+<a href="/quizes/<%= quiz.id %>?fallos=<%= comprobarFallos %>">Volver</a>
