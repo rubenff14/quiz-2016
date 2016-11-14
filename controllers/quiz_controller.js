@@ -36,9 +36,7 @@ exports.answer = function (req, res) {
 
 // GET /quizes/new
 exports.new = function(req, res) {
-	var quiz = models.Quiz.build( // Crea objeto quiz
-		{pregunta: "pregunta", respuesta: "respuesta"}
-	);
+	var quiz = models.Quiz.build({}); // Crea objeto quiz vacio
 	res.render('quizes/new', {quiz: quiz, errors:[]});
 };
 
@@ -83,4 +81,11 @@ exports.update = function(req, res) {
 			}
 		}
 	);
+};
+
+// DELETE /quizes/:id
+exports.destroy = function(req, res) {
+	req.quiz.destroy().then( function() {
+		res.redirect('/quizes');
+	}).catch(function(error) {next (error)});
 };
