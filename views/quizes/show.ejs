@@ -3,3 +3,14 @@
   <input type="text" name="respuesta" value="Responda aquí"> 
   <input type="submit" value="Enviar">
 </form>
+
+<p><a href="/quizes/<%= quiz.id %>/comments/new"><button>Nuevo comentario</button></a></p>
+
+<% if (quiz.Comments.length) { %>
+	<p><strong>Comentarios:</strong></p>
+
+<% var i; for (i=0; i<quiz.Comments.length; i++) { %>
+	<p><%= quiz.Comments[i].texto %></p>
+<% } 	
+} %>
+

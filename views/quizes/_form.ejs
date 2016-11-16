@@ -1,20 +1,16 @@
 <p><label for="preg" class="rem">Pregunta:</label>
-<input type="text" id="preg" name="quiz[pregunta]" 
-<% if(quiz.pregunta) { %>
-	value="<%= quiz.pregunta %>"/>
-<% } else { %>
+<input type="text" id="preg" name="quiz[pregunta]" value="<%= quiz.pregunta %>" 
+<% if(!quiz.pregunta) { %>
 	placeholder = "pregunta"
 <% } %>
-</p>
+/></p>
 
 <p><label for="resp" class="rem">Respuesta:</label>
-<input type="text" id="resp" name="quiz[respuesta]" 
-<% if(quiz.respuesta) { %>
-	value="<%= quiz.respuesta %>"/>
-<% } else { %>
+<input type="text" id="resp" name="quiz[respuesta]" value="<%= quiz.respuesta %>" 
+<% if(!quiz.respuesta) { %>
 	placeholder = "respuesta"
 <% } %>
-</p>
+/></p>
 
 <p><a href="/quizes"><button type="button">Cancelar</button></a>
 <input type="submit" value="Salvar"></p>
