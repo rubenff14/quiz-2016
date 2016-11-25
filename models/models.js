@@ -14,6 +14,9 @@ var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
 // Importar la definicion de la tabla Comments en comments.js
 var Comment = sequelize.import(path.join(__dirname, 'comment'));
 
+// Importar la definicion de la tabla Usuarios en usuarios.js
+var Usuario = sequelize.import(path.join(__dirname, 'usuarios'));
+
 //Relacionar las tablas Quiz y Comments
 Quiz.hasMany(Comment);
 
@@ -22,6 +25,9 @@ exports.Quiz = Quiz;
 
 // exportar definición de la tabla Comments
 exports.Comment = Comment;
+
+// exportar definición de la tabla autenticaTabla
+exports.Usuario = Usuario;
 
 // sequelize.sync() crea e inicializa tabla de preguntas en BD
 sequelize.sync().then(function() {
@@ -34,7 +40,20 @@ sequelize.sync().then(function() {
 			Quiz.create({pregunta: 'Capital de Portugal',
 						respuesta: 'Lisboa'
 			})
-		.then(function() {console.log('Base de datos inicializada')});
+		.then(function() {console.log('Preguntas actualizadas')});
+		};
+	});
+
+// success() ejecuta el manejador una vez creada la tabla
+	Usuario.count().then(function(count) {
+		if(count === 0) { // La tabla se inicializa solo si está vacía
+			Usuario.create({username: 'admin',
+						password: '1234'
+			});
+			Usuario.create({username: 'pepe',
+						password: '5678'
+			})
+		.then(function() {console.log('Usuarios actualizados')});
 		};
 	});
 });
