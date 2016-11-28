@@ -3,6 +3,7 @@ var router = express.Router();
 var quizController = require('../controllers/quiz_controller');
 var commentController = require('../controllers/comment_controller');
 var sessionController = require('../controllers/session_controller');
+var userController = require('../controllers/user_controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -17,6 +18,11 @@ router.param('commentId', commentController.load);
 router.get('/login', sessionController.new); // Formulario login
 router.post('/login', sessionController.create); // Crear sesión
 router.get('/logout', sessionController.destroy); // Destruir sesión 
+
+// Definición de rutas de usuarios
+router.get('/users', userController.index); // Listado de usuarios de la BD
+router.get('/user/new', userController.new); // Añadir nuevo usuario
+router.post('/user/create', userController.create); // Crear usuario en la BD
 
 // Definición de rutas de /quizes
 router.get('/quizes', quizController.index);

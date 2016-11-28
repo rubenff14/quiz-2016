@@ -1,0 +1,24 @@
+<h2>Alta Nuevos Usuarios</h2>
+
+<form method='POST' action='/user/create'>
+	<div class="field">
+		<label for="username">Nombre Usuario:</label><br/>
+		<input type="text" id="username" name="user[username]" size="30" placeholder = "nombre usuario"/>
+	</div>
+
+	<div class="field">
+		<label for="password">Password:</label><br/>
+		<input type="password" id="password" name="user[password]" size="30" placeholder = "contraseña"/>
+	</div>
+
+	<div class="field">
+		<label for="password1">Repite Password:</label><br/>
+		<input type="password" id="password1" name="password1" size="30" placeholder = "contraseña"/>
+	</div>
+
+	<div class="actions">
+		<p><input type="submit" name="commit" value="Enviar" />
+		<a href="/login"><button type="button">Cancelar</button></a></p>
+	</div>
+
+</form>
