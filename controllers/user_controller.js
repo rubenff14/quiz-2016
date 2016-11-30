@@ -41,13 +41,44 @@ exports.create = function(req, res) {
 			if (req.body.user.password === req.body.password1) {
 				// Guarda en la base de datos los campos username y password de usuario
 				user.save({fields: ["username", "password"]}).then(function() {			
-				res.redirect('/users'); // Redirección a login (URL relativo)
+				res.redirect('/users'); // Redirección a users (URL relativo)
 				})	
 			} else {
 				res.render('users/new', {user: user, errors: [{message: 'Las contraseñas no son iguales'}]});
 			}
 		}
 	});
+};
+
+// GET /users/edit
+exports.edit = function(req, res) {
+	var user = req.user;
+	
+	res.render('users/edit', {user: user, errors:[]});
+};
+
+// PUT /users/:id
+exports.update = function(req, res) {
+	req.user.username = req.body.user.username;
+	req.user.password = req.body.user.password;
+
+	req.user.validate().then(
+		function(err) {
+			if(err) {
+				res.render('users/edit', {user: req.user, errors: err.errors});
+			}
+			else {
+				if (req.body.user.password === req.body.password1) {
+					// Guarda en la base de datos los campos username y password de req.user
+					req.user.save({fields: ["username", "password"]}).then(function() {			
+					res.redirect('/users'); // Redirección a lista de pregunta (URL relativo)
+					});
+				} else {
+				res.render('users/edit', {user: req.user, errors: [{message: 'Las contraseñas no son iguales'}]});
+				}
+			}
+		}
+	);
 };
 
 // DELETE /users/:id

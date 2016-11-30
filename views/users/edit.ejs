@@ -1,0 +1,24 @@
+<h2>Editar Usuarios</h2>
+
+<form method="post" action="/users/<%= user.id %>?_method=put">
+	<div class="field">
+		<label for="username">Nombre Usuario:</label><br/>
+		<input type="text" id="username" name="user[username]" value="<%= user.username %>" size="30"/>
+	</div>
+
+	<div class="field">
+		<label for="password">Password:</label><br/>
+		<input type="password" id="password" name="user[password]" size="30" value="<%= user.password %>"/>
+	</div>
+
+	<div class="field">
+		<label for="password1">Repite Password:</label><br/>
+		<input type="password" id="password1" name="password1" size="30" placeholder = "contraseña"/>
+	</div>
+
+	<div class="actions">
+		<p><input type="submit" name="commit" value="Enviar" />
+		<a href="/users"><button type="button">Cancelar</button></a></p>
+	</div>
+
+</form>

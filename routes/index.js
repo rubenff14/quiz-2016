@@ -25,6 +25,8 @@ router.get('/users', userController.index); // Listado de usuarios de la BD
 router.get('/users/new', userController.new); // Añadir nuevo usuario
 router.post('/users/create', userController.create); // Crear usuario en la BD
 router.delete('/users/:userId(\\d+)', sessionController.adminRequired, userController.destroy); // Eliminar usuarios
+router.get('/users/:userId(\\d+)/edit', sessionController.propietarios, userController.edit); // Ruta vista edit
+router.put('/users/:userId(\\d+)', sessionController.propietarios, userController.update); // Ruta para actualizar
 
 // Definición de rutas de /quizes
 router.get('/quizes', quizController.index);

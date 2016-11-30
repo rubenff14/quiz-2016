@@ -14,7 +14,15 @@ exports.adminRequired = function(req, res, next) {
 	} else {
 		res.redirect('/login');
 	}
-}; 
+};
+
+exports.propietarios = function(req, res, next) {
+	if (req.session.user.id === parseInt(req.params.userId) || req.session.user.username === 'admin') {
+		next();	
+	} else {
+		res.redirect('/users');
+	}
+} 
 
 // Get /login -- Formulario de login
 exports.new = function(req, res) {
