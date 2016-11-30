@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
 // Autoload de comandos con :quizId
 router.param('quizId', quizController.load);
 router.param('commentId', commentController.load);
+router.param('userId', userController.load);
 
 // Definición de rutas de sesion
 router.get('/login', sessionController.new); // Formulario login
@@ -21,8 +22,9 @@ router.get('/logout', sessionController.destroy); // Destruir sesión
 
 // Definición de rutas de usuarios
 router.get('/users', userController.index); // Listado de usuarios de la BD
-router.get('/user/new', userController.new); // Añadir nuevo usuario
-router.post('/user/create', userController.create); // Crear usuario en la BD
+router.get('/users/new', userController.new); // Añadir nuevo usuario
+router.post('/users/create', userController.create); // Crear usuario en la BD
+router.delete('/users/:userId(\\d+)', sessionController.adminRequired, userController.destroy); // Eliminar usuarios
 
 // Definición de rutas de /quizes
 router.get('/quizes', quizController.index);

@@ -24,13 +24,13 @@ exports.index = function (req, res) {
 	}).catch (function(error) {next(error);});
 };
 
-// GET /user/new
+// GET /users/new
 exports.new = function(req, res) {
 	var user = models.User.build({}); // Crea objeto usuario vacio
 	res.render('users/new', {user: user, errors:[]});
 };
 
-// POST /user/create
+// POST /users/create
 exports.create = function(req, res) {
 	var user = models.User.build(req.body.user);
 
@@ -48,6 +48,13 @@ exports.create = function(req, res) {
 			}
 		}
 	});
+};
+
+// DELETE /users/:id
+exports.destroy = function(req, res) {
+	req.user.destroy().then( function() {
+		res.redirect('/users');
+	}).catch(function(error) {next (error)});
 };
 
 // Comprueba se el ususario esta registrado en users
