@@ -30,8 +30,16 @@ exports.answer = function (req, res) {
 	var resultado = 'Incorrecto';
 		if(req.query.respuesta.toUpperCase() === req.quiz.respuesta.toUpperCase()) {
 			resultado = 'Correcto';
+			if(req.session.user) {
+				var userController = require('./user_controller');
+				userController.aciertos(req.session.user.id, function(error){
+					if(error) {
+						req.session.errors = [{"message": 'Se ha producido un error: ' + error}];
+					}
+				});
+			}
 		}
-		res.render('quizes/answer.ejs', {quiz: req.quiz, respuesta: resultado, errors:[]});
+	res.render('quizes/answer.ejs', {quiz: req.quiz, respuesta: resultado, errors:[]});
 };
 
 // GET /quizes/new

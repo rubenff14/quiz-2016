@@ -100,3 +100,24 @@ exports.autenticar = function(login, password, callback) {
 		}
 	}) .catch (function(error) {error;});	
 };
+
+exports.aciertos = function(id, callback) {
+	models.User.findOne({where: { id: id}}).then(function(user) {
+		if (user) {
+			var aciertos = user.aciertos +=1;
+			user.validate().then(function(err) {
+				if(err) {
+					callback(new Error('Los aciertos no se han incrementado'));
+				} else {
+					// Guarda en la base de datos el campo aciertos de usuarios
+					user.save({fields: ["aciertos"]}).then(function() {			
+						callback(null, user);
+					})
+				}
+			});
+		}
+		else {
+			callback(new Error('Datos incorrectos'));
+		}
+	}).catch (function(error) {error;});	
+};
