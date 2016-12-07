@@ -31,12 +31,7 @@ exports.answer = function (req, res) {
 		if(req.query.respuesta.toUpperCase() === req.quiz.respuesta.toUpperCase()) {
 			resultado = 'Correcto';
 			if(req.session.user) {
-				var userController = require('./user_controller');
-				userController.aciertos(req.session.user.id, function(error){
-					if(error) {
-						req.session.errors = [{"message": 'Se ha producido un error: ' + error}];
-					}
-				});
+				req.session.user.aciertos +=1;
 			}
 		}
 	res.render('quizes/answer.ejs', {quiz: req.quiz, respuesta: resultado, errors:[]});

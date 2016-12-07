@@ -48,12 +48,10 @@ sequelize.sync().then(function() {
 	User.count().then(function(count) {
 		if(count === 0) { // La tabla se inicializa solo si está vacía
 			User.create({username: 'admin',
-						password: '1234',
-						aciertos: 0
+						password: '1234'
 			});
 			User.create({username: 'pepe',
-						password: '5678',
-						aciertos: 0
+						password: '5678'
 			})
 		.then(function() {console.log('Usuarios actualizados')});
 		};
